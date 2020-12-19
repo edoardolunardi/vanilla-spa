@@ -38,6 +38,9 @@ class Router extends EventTarget {
     this.routeChangeStart = new Event("routeChangeStart");
     this.routeChangeEnd = new Event("routeChangeEnd");
 
+    // Bind functions that are used in event listeners
+    this.matchRoute = this.matchRoute.bind(this);
+
     // Call matchRoute on page load
     this.matchRoute();
 
