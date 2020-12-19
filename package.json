@@ -2,10 +2,6 @@
   "name": "vanilla-spa",
   "version": "1.0.0",
   "description": "",
-  "browserslist": [
-    "> 0.2%",
-    "not dead"
-  ],
   "scripts": {
     "clear": "rm -rf dist/ && rm -rf .cache/ && rm -rf node_modules/.cache",
     "dev": "npm run clear && parcel src/index.html",
