@@ -23,6 +23,7 @@ class Router extends EventTarget {
   match: Match;
   routes: Route[];
   links: HTMLAnchorElement[];
+  firstLoad: boolean;
   routeChangeStart: Event;
   routeChangeEnd: Event;
 
@@ -30,6 +31,8 @@ class Router extends EventTarget {
     super();
 
     this.routes = routes;
+
+    this.firstLoad = true;
 
     // App root
     this.root = document.querySelector("#app");
@@ -88,35 +91,48 @@ class Router extends EventTarget {
   // Mount the new route
   in(): void {
     this.activeView = new this.match.route.view(getUrlParams(this.match));
-    gsap.set(this.root, { pointerEvents: "none" });
 
-    gsap.to(this.root, {
-      opacity: 0,
-      duration: 0.5,
-      onComplete: () => {
-        // Call done when the animation is completed and the new content is ready to be rendered
-        this.done();
-      },
-    });
+    if (this.firstLoad) {
+      this.done();
+    } else {
+      gsap.set(this.root, { pointerEvents: "none" });
+      gsap.to(this.root, {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+          // Call done when the animation is completed and the new content is ready to be rendered
+          this.done();
+        },
+      });
+    }
+
+    this.firstLoad = false;
   }
 
   done(): void {
     render(this.activeView.render(), this.root);
 
-    gsap.fromTo(
-      this.root,
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 0.5,
-        onComplete: () => {
-          this.linksHandler();
-          gsap.set(this.root, { pointerEvents: "auto" });
-          // Ending route change
-          this.dispatchEvent(this.routeChangeEnd);
-        },
-      }
-    );
+    if (this.firstLoad) {
+      this.linksHandler();
+      this.dispatchEvent(this.routeChangeEnd);
+    } else {
+      gsap.fromTo(
+        this.root,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.5,
+          onComplete: () => {
+            this.linksHandler();
+            gsap.set(this.root, { pointerEvents: "auto" });
+            // Ending route change
+            this.dispatchEvent(this.routeChangeEnd);
+          },
+        }
+      );
+    }
+
+    this.firstLoad = false;
   }
 }
 
