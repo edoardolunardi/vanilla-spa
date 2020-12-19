@@ -17,7 +17,7 @@ class Article {
 
   render(): TemplateResult {
     return html`
-      <section data-router-view>
+      <section>
         <h1>This is the article ${this.params.id}</h1>
       </section>
     `;

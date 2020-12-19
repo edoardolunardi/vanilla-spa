@@ -10,7 +10,7 @@ class NotFound {
 
   render(): TemplateResult {
     return html`
-      <section data-router-view>
+      <section>
         <h1>404 not found</h1>
       </section>
     `;

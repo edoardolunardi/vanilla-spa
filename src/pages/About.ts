@@ -10,7 +10,7 @@ class About {
 
   render(): TemplateResult {
     return html`
-      <section data-router-view>
+      <section>
         <a href="/">Homepage</a>
         <h1>Hello from the about page</h1>
       </section>

@@ -10,7 +10,7 @@ class Index {
 
   render(): TemplateResult {
     return html`
-      <section data-router-view>
+      <section>
         <a href="/about">About</a>
         <h1>Hello from the homepage</h1>
       </section>
