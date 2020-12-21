@@ -5,6 +5,8 @@ import NotFound from "./pages/NotFound";
 
 import Router from "./Router";
 
+import "./styles/main.scss";
+
 class App {
   router: Router;
 
