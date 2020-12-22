@@ -27,3 +27,12 @@ export const getUrlParams = (match: any) => {
 
 export const isInternalRoute = (url: string): boolean =>
   !url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("#");
+
+export const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
+
+export const getMousePos = (e): any => {
+  return {
+    x: e.clientX,
+    y: e.clientY,
+  };
+};
