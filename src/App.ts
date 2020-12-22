@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Router from "./Router";
 
 // Components
+import Preload from "./components/Preload";
 import Cursor from "./components/Cursor";
 
 // Global style
@@ -16,6 +17,7 @@ import "./styles/main.scss";
 class App {
   router: Router;
   cursor: Cursor;
+  preload: Preload;
 
   constructor() {
     // Router will be responsible of handling client side routes, injecting the correct data for every route and page transitions
@@ -26,7 +28,13 @@ class App {
       { path: "/404", view: NotFound },
     ]);
 
+    this.preload = new Preload(document.querySelector(".preloader"));
+
     this.cursor = new Cursor(document.querySelector(".cursor"));
+
+    this.preload.preloadImages().then(() => {
+      this.preload.removePreloader();
+    });
 
     this.router.addEventListener("routeChangeEnd", () => {
       this.cursor.attachEventsToLinks();
