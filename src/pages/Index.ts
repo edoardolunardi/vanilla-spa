@@ -15,10 +15,6 @@ class Index {
           <h1 class="text-purple-500 font-sans text-5xl mb-6" data-content="homepage-title">Hello from the homepage</h1>
           <a href="/about">Go to the about page</a>
         </div>
-        <div class="flex flex-col items-center text-center">
-          <h1 class="text-purple-500 font-sans text-5xl mb-6" data-content="homepage-title"></h1>
-          <a href="./page2.html" data-content="homepage-cta"></a>
-        </div>
         <div class="w-full relative overflow-hidden aspect-ratio-16/9 mb-12">
           <img src="https://picsum.photos/1920/1080/?random=1" class="absolute inset-0 w-full h-full object-cover" />
         </div>
