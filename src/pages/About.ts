@@ -10,7 +10,7 @@ class About {
 
   render(): TemplateResult {
     return html`
-      <section class="min-h-screen">
+      <section class="min-h-screen" sm00th-scroll-section>
         <div class="my-64 flex flex-col items-center text-center">
           <h1 class="text-purple-500 font-sans text-5xl mb-6" data-content="homepage-title">
             Hello from the about page

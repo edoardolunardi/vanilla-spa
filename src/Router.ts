@@ -29,7 +29,6 @@ class Router extends EventTarget {
 
   constructor(routes: Route[]) {
     super();
-
     this.routes = routes;
 
     this.firstLoad = true;
@@ -93,6 +92,7 @@ class Router extends EventTarget {
       this.done();
     } else {
       gsap.set(this.root, { pointerEvents: "none" });
+      gsap.set(document.body, { overflow: "hidden" });
       gsap.to(this.root, {
         opacity: 0,
         duration: 0.5,
@@ -113,6 +113,7 @@ class Router extends EventTarget {
       this.linksHandler();
       this.dispatchEvent(this.routeChangeEnd);
     } else {
+      window.scrollTo(0, 0);
       gsap.fromTo(
         this.root,
         { opacity: 0 },
@@ -122,6 +123,7 @@ class Router extends EventTarget {
           onComplete: () => {
             this.linksHandler();
             gsap.set(this.root, { pointerEvents: "auto" });
+            gsap.set(document.body, { overflow: "auto" });
             // Ending route change
             this.dispatchEvent(this.routeChangeEnd);
           },
