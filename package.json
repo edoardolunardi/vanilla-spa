@@ -15,22 +15,23 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
-    "autoprefixer": "^9.8.6",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.2.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.2.1",
     "sass": "^1.30.0",
-    "postcss": "^7.0.35",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "autoprefixer": "^9.8.6",
     "event-target-shim": "^5.0.1",
     "gsap": "^3.5.1",
     "imagesloaded": "^4.1.4",
     "lit-html": "^1.3.0",
+    "postcss": "^7.0.35",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "tailwindcss-aspect-ratio": "^3.0.0"
   }
 }
