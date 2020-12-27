@@ -43,7 +43,7 @@ class App {
       this.scroll.refresh();
     });
 
-    this.router.addEventListener("routeChangeEnd", () => {
+    this.router.on("routeChangeEnd", () => {
       this.cursor.attachEventsToLinks();
 
       this.scroll.refresh();

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EventTarget } from "event-target-shim";
 import { render } from "lit-html";
 import { gsap } from "gsap";
 import { isInternalRoute, pathToRegex, getUrlParams } from "./utils";
+import EventEmitter from "./components/EventEmitter";
 
 type View = any;
 
@@ -16,7 +16,7 @@ interface Match {
   result: RegExpMatchArray;
 }
 
-class Router extends EventTarget {
+class Router extends EventEmitter {
   root: HTMLDivElement;
   activeView: View;
   matches: Match[];
@@ -24,8 +24,6 @@ class Router extends EventTarget {
   routes: Route[];
   links: HTMLAnchorElement[];
   firstLoad: boolean;
-  routeChangeStart: Event;
-  routeChangeEnd: Event;
 
   constructor(routes: Route[]) {
     super();
@@ -36,10 +34,6 @@ class Router extends EventTarget {
     // App root
     this.root = document.querySelector("#app");
 
-    // Create new event
-    this.routeChangeStart = new Event("routeChangeStart");
-    this.routeChangeEnd = new Event("routeChangeEnd");
-
     // Call matchRoute on page load
     this.matchRoute();
 
@@ -48,7 +42,7 @@ class Router extends EventTarget {
 
   matchRoute(): void {
     // Starting route change
-    this.dispatchEvent(this.routeChangeStart);
+    this.emit("routeChangeStart");
 
     this.matches = this.routes.map((route) => ({
       route: route,
@@ -111,7 +105,7 @@ class Router extends EventTarget {
 
     if (this.firstLoad) {
       this.linksHandler();
-      this.dispatchEvent(this.routeChangeEnd);
+      this.emit("routeChangeEnd");
     } else {
       window.scrollTo(0, 0);
       gsap.fromTo(
@@ -125,7 +119,7 @@ class Router extends EventTarget {
             gsap.set(this.root, { pointerEvents: "auto" });
             gsap.set(document.body, { overflow: "auto" });
             // Ending route change
-            this.dispatchEvent(this.routeChangeEnd);
+            this.emit("routeChangeEnd");
           },
         }
       );

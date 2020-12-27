@@ -26,11 +26,11 @@
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9.8.6",
-    "event-target-shim": "^5.0.1",
     "gsap": "^3.5.1",
     "imagesloaded": "^4.1.4",
     "lit-html": "^1.3.0",
     "postcss": "^7.0.35",
+    "sm00th-scroll": "^1.0.4",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "tailwindcss-aspect-ratio": "^3.0.0"
   }
