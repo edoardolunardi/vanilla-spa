@@ -4,8 +4,6 @@ import { html, TemplateResult } from "lit-html";
 class NotFound {
   constructor() {
     setMeta({ title: "404 Not Found" });
-
-    this.render = this.render.bind(this);
   }
 
   render(): TemplateResult {

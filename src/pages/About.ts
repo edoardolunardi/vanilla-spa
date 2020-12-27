@@ -4,8 +4,6 @@ import { html, TemplateResult } from "lit-html";
 class About {
   constructor() {
     setMeta({ title: "About Page" });
-
-    this.render = this.render.bind(this);
   }
 
   render(): TemplateResult {
