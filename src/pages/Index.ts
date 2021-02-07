@@ -8,7 +8,7 @@ class Index {
 
   render(): TemplateResult {
     return html`
-      <section class="min-h-screen" sm00th-scroll-section>
+      <section class="min-h-screen">
         <div class="my-64 flex flex-col items-center text-center">
           <h1 class="text-purple-500 font-sans text-5xl mb-6" data-content="homepage-title">Hello from the homepage</h1>
           <a href="/about">Go to the about page</a>

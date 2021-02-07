@@ -1,5 +1,3 @@
-import { Sm00thScroll } from "sm00th-scroll";
-
 // Pages
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -20,7 +18,6 @@ class App {
   router: Router;
   cursor: Cursor;
   preload: Preload;
-  scroll: Sm00thScroll;
 
   constructor() {
     // Router will be responsible of handling client side routes, injecting the correct data for every route and page transitions
@@ -35,18 +32,12 @@ class App {
 
     this.cursor = new Cursor(document.querySelector(".cursor"));
 
-    this.scroll = new Sm00thScroll({ disableOverflowBehaviorX: true, disableOverflowBehaviorY: true });
-
     this.preload.preloadImages().then(() => {
       this.preload.removePreloader();
-
-      this.scroll.refresh();
     });
 
     this.router.on("routeChangeEnd", () => {
       this.cursor.attachEventsToLinks();
-
-      this.scroll.refresh();
     });
   }
 }
