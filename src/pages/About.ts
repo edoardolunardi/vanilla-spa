@@ -1,6 +1,12 @@
 import { setMeta } from "../utils";
 import { html, TemplateResult } from "lit-html";
 
+const styles = {
+  hero: "my-64 flex flex-col items-center text-center",
+  heroTitle: "text-purple-500 font-sans text-5xl mb-6",
+  imageContainer: "w-full relative overflow-hidden aspect-ratio-16/9 mb-12",
+  image: "absolute inset-0 w-full h-full object-cover",
+};
 class About {
   constructor() {
     setMeta({ title: "About Page" });
@@ -9,30 +15,15 @@ class About {
   render(): TemplateResult {
     return html`
       <section class="min-h-screen">
-        <div class="my-64 flex flex-col items-center text-center">
-          <h1 class="text-purple-500 font-sans text-5xl mb-6" data-content="homepage-title">
-            Hello from the about page
-          </h1>
+        <div class=${styles.hero}>
+          <h1 class=${styles.heroTitle}>Hello from the about page</h1>
           <a href="/">Go to the homepage</a>
         </div>
-        <div class="w-full relative overflow-hidden aspect-ratio-16/9 mb-12">
-          <img src="https://picsum.photos/1920/1080/?random=9" class="absolute inset-0 w-full h-full object-cover" />
-        </div>
-        <div class="w-full relative overflow-hidden aspect-ratio-16/9 mb-12">
-          <img src="https://picsum.photos/1920/1080?random=10" class="absolute inset-0 w-full h-full object-cover" />
-        </div>
-        <div class="w-full relative overflow-hidden aspect-ratio-16/9 mb-12">
-          <img src="https://picsum.photos/1920/1080?random=11" class="absolute inset-0 w-full h-full object-cover" />
-        </div>
-        <div class="w-full relative overflow-hidden aspect-ratio-16/9 mb-12">
-          <img src="https://picsum.photos/1920/1080?random=12" class="absolute inset-0 w-full h-full object-cover" />
-        </div>
-        <div class="w-full relative overflow-hidden aspect-ratio-16/9 mb-12">
-          <img src="https://picsum.photos/1920/1080?random=13" class="absolute inset-0 w-full h-full object-cover" />
-        </div>
-        <div class="w-full relative overflow-hidden aspect-ratio-16/9">
-          <img src="https://picsum.photos/1920/1080?random=14" class="absolute inset-0 w-full h-full object-cover" />
-        </div>
+        ${[...new Array(10)].map(
+          (_, i) => html` <div class=${styles.imageContainer}>
+            <img src="https://picsum.photos/1920/1080/?random=${i + 11}" class=${styles.image} />
+          </div>`
+        )}
       </section>
     `;
   }

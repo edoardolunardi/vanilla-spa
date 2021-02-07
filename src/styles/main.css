@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (any-pointer: fine) {
+  .cursor {
+    @apply fixed top-0 left-0 block pointer-events-none text-purple-500;
+  }
+
+  .cursor__inner {
+    @apply stroke-1 fill-current stroke-current opacity-70;
+  }
+}

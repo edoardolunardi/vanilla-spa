@@ -12,7 +12,7 @@ import Preload from "./components/Preload";
 import Cursor from "./components/Cursor";
 
 // Global style
-import "./styles/main.scss";
+import "./styles/main.css";
 
 class App {
   router: Router;
