@@ -57,11 +57,7 @@ class Cursor {
 
     this.renderedStyles.y = lerp(this.renderedStyles.y, this.pos.clientY, 0.2);
 
-    gsap.set(this.cursor, { x: this.renderedStyles.x });
-
-    gsap.set(this.cursor, { y: this.renderedStyles.y });
-
-    gsap.to(this.cursor, { scale: this.renderedStyles.scale });
+    gsap.set(this.cursor, { x: this.renderedStyles.x, y: this.renderedStyles.y, scale: this.renderedStyles.scale });
 
     requestAnimationFrame(this.renderCursor);
   }
