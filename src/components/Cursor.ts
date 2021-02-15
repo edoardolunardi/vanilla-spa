@@ -1,5 +1,5 @@
 import { gsap } from "gsap";
-import { lerp } from "../utils";
+import { lerp } from "../utils/common";
 
 class Cursor {
   cursor: HTMLElement;

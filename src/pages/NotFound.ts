@@ -1,5 +1,5 @@
-import { setMeta } from "../utils";
 import { html, TemplateResult } from "lit-html";
+import { setMeta } from "../utils/common";
 
 class NotFound {
   constructor() {

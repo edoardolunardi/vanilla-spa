@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { render } from "lit-html";
 import { gsap } from "gsap";
-import { isInternalRoute, pathToRegex, getUrlParams } from "./utils";
+import { isInternalRoute, pathToRegex, getUrlParams } from "./utils/common";
 import EventEmitter from "./components/EventEmitter";
 
 type View = any;
