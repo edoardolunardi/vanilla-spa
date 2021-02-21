@@ -1,1 +1,6 @@
 declare module "imagesloaded"
+declare module "@node-minify/core"
+declare module "@node-minify/html-minifier"
+declare module "@prerenderer/prerenderer"
+declare module "@prerenderer/renderer-puppeteer"
+declare module "ora"
