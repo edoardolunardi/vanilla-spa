@@ -1,24 +1,18 @@
-import { html, TemplateResult } from "lit-html";
+import { html } from "lit-html";
 import { setMeta } from "../utils/common";
 
-interface Params {
+interface Props {
   id: string;
 }
-class Article {
-  params: Params;
 
-  constructor(params: Params) {
-    this.params = params;
-    setMeta({ title: `Article ${this.params.id}` });
-  }
+const Article = ({ id }: Props) => {
+  setMeta({ title: `Article ${id}` });
 
-  render(): TemplateResult {
-    return html`
-      <section>
-        <h1>This is the article ${this.params.id}</h1>
-      </section>
-    `;
-  }
+  return html`
+  <section>
+    <h1>This is the article ${id}</h1>
+  </section>
+`;
 }
 
 export default Article;

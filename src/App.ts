@@ -14,32 +14,25 @@ import Cursor from "./components/Cursor";
 // Global style
 import "./styles/main.css";
 
-class App {
-  router: Router;
-  cursor: Cursor;
-  preload: Preload;
+const App = () => {
+  const router = new Router([
+    { path: "/", view: Index },
+    { path: "/about", view: About },
+    { path: "/articles/:id", view: Article },
+    { path: "/404", view: NotFound },
+  ]);
 
-  constructor() {
-    // Router will be responsible of handling client side routes, injecting the correct data for every route and page transitions
-    this.router = new Router([
-      { path: "/", view: Index },
-      { path: "/about", view: About },
-      { path: "/articles/:id", view: Article },
-      { path: "/404", view: NotFound },
-    ]);
+  const preload = Preload({ preloader: document.querySelector(".preloader") });
 
-    this.preload = new Preload(document.querySelector(".preloader"));
+  const cursor = Cursor({ el: document.querySelector(".cursor") });
 
-    this.cursor = new Cursor(document.querySelector(".cursor"));
+  preload.preloadImages().then(() => {
+    preload.removePreloader();
+  });
 
-    this.preload.preloadImages().then(() => {
-      this.preload.removePreloader();
-    });
-
-    this.router.on("routeChangeEnd", () => {
-      this.cursor.attachEventsToLinks();
-    });
-  }
+  router.on("routeChangeEnd", () => {
+    cursor.attachEventsToLinks();
+  });
 }
 
-new App();
+App();

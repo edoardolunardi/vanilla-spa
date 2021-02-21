@@ -2,7 +2,7 @@
 import { render } from "lit-html";
 import { gsap } from "gsap";
 import { isInternalRoute, pathToRegex, getUrlParams } from "./utils/common";
-import EventEmitter from "./components/EventEmitter";
+import EventEmitter from "./EventEmitter";
 
 type View = any;
 
@@ -80,7 +80,7 @@ class Router extends EventEmitter {
 
   // Mount the new route
   in(): void {
-    this.activeView = new this.match.route.view(getUrlParams(this.match));
+    this.activeView = this.match.route.view(getUrlParams(this.match));
 
     if (this.firstLoad) {
       this.done();
@@ -101,7 +101,7 @@ class Router extends EventEmitter {
   }
 
   done(): void {
-    render(this.activeView.render(), this.root);
+    render(this.activeView, this.root);
 
     if (this.firstLoad) {
       this.linksHandler();

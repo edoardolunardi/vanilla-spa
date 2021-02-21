@@ -1,81 +1,63 @@
 import { gsap } from "gsap";
 import { lerp } from "../utils/common";
 
-class Cursor {
-  cursor: HTMLElement;
+interface Props {
+  el: HTMLElement
+}
 
-  bounds: ClientRect;
+const Cursor = ({ el }: Props) => {
+  const cursor = el;
 
-  renderedStyles: {
-    x: number;
-    y: number;
-    scale: number;
-  };
+  const bounds = cursor.getBoundingClientRect();
 
-  pos: {
-    clientX: number;
-    clientY: number;
-  };
-
-  constructor(cursor: HTMLElement) {
-    this.cursor = cursor;
-
-    this.bounds = this.cursor.getBoundingClientRect();
-
-    this.renderedStyles = {
-      x: 0,
-      y: 0,
-      scale: 1,
-    };
-
-    this.pos = {
-      clientX: 0,
-      clientY: 0,
-    };
-
-    gsap.set(this.cursor, { opacity: 0 });
-
-    this.renderCursor = this.renderCursor.bind(this);
-
-    requestAnimationFrame(() => this.renderCursor());
-
-    this.attachEventsToLinks();
-
-    window.addEventListener("mousemove", (e) => this.onMouseMove(e));
+  const renderedStyles = {
+    x: 0,
+    y: 0,
+    scale: 1
   }
 
-  onMouseMove(e: MouseEvent): void {
-    gsap.set(this.cursor, { opacity: 1 });
-
-    this.pos.clientX = e.clientX - this.bounds.width / 2;
-
-    this.pos.clientY = e.clientY - this.bounds.height / 2;
+  const pos = {
+    clientX: window.innerHeight / 2,
+    clientY: window.innerHeight / 2
   }
 
-  renderCursor(): void {
-    this.renderedStyles.x = lerp(this.renderedStyles.x, this.pos.clientX, 0.2);
+  gsap.set(cursor, { opacity: 0 });
 
-    this.renderedStyles.y = lerp(this.renderedStyles.y, this.pos.clientY, 0.2);
-
-    gsap.set(this.cursor, { x: this.renderedStyles.x, y: this.renderedStyles.y, scale: this.renderedStyles.scale });
-
-    requestAnimationFrame(this.renderCursor);
+  const onMouseMove = (e: MouseEvent) => {
+    gsap.set(cursor, { opacity: 1 });
+    pos.clientX = e.clientX - bounds.width / 2;
+    pos.clientY = e.clientY - bounds.height / 2;
   }
 
-  enter(): void {
-    this.renderedStyles.scale = 2.5;
+  const renderCursor = () => {
+    renderedStyles.x = lerp(renderedStyles.x, pos.clientX, 0.2);
+    renderedStyles.y = lerp(renderedStyles.y, pos.clientY, 0.2);
+    gsap.set(cursor, { x: renderedStyles.x, y: renderedStyles.y, scale: renderedStyles.scale });
+    requestAnimationFrame(renderCursor);
   }
 
-  leave(): void {
-    this.renderedStyles.scale = 1;
+  const enter = () => {
+    renderedStyles.scale = 2.5;
   }
 
-  attachEventsToLinks(): void {
+  const leave = () => {
+    renderedStyles.scale = 1;
+  }
+
+  const attachEventsToLinks = () => {
     [...document.querySelectorAll("a")].forEach((link) => {
-      link.addEventListener("mouseenter", () => this.enter());
-      link.addEventListener("mouseleave", () => this.leave());
+      link.addEventListener("mouseenter", () => enter());
+      link.addEventListener("mouseleave", () => leave());
     });
   }
+
+  attachEventsToLinks();
+
+  requestAnimationFrame(() => renderCursor());
+
+  window.addEventListener("mousemove", (e) => onMouseMove(e));
+
+  return { attachEventsToLinks }
 }
 
 export default Cursor;

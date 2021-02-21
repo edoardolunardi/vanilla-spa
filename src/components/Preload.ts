@@ -2,55 +2,46 @@
 import ImagesLoaded from "imagesloaded";
 import { gsap } from "gsap";
 
-class Preload {
+interface Props {
   preloader: HTMLElement;
-  preloaderText: HTMLElement;
-  totalImages: number;
-  loaded: number;
-  percentage: number;
+}
 
-  constructor(preloader: HTMLElement) {
-    document.documentElement.style.setProperty("--loading-progress", "0%");
+const Preload = ({ preloader }: Props) => {
+  document.documentElement.style.setProperty("--loading-progress", "0%");
 
-    this.preloader = preloader;
+  const preloaderText = preloader.querySelector("h1");
 
-    this.preloaderText = this.preloader.querySelector("h1");
+  gsap.set(document.body, { overflow: "hidden" });
 
-    gsap.set(document.body, { overflow: "hidden" });
+  const setPercentage = (p: number) => {
+    document.documentElement.style.setProperty("--loading-progress", `${p}%`);
+    preloaderText.textContent = `${p}%`;
   }
 
-  setPercentage(percentage: number): void {
-    document.documentElement.style.setProperty("--loading-progress", `${percentage}%`);
-    this.preloaderText.textContent = `${percentage}%`;
-  }
-
-  preloadImages(): Promise<any> {
+  const preloadImages = () => {
     return new Promise((resolve) => {
       new ImagesLoaded(document.querySelectorAll("img"), resolve).on("progress", (instance: any) => {
-        this.totalImages = instance.images.length;
-
-        this.loaded = instance.progressedCount;
-
-        this.percentage = Math.floor((100 / this.totalImages) * this.loaded);
-
-        this.setPercentage(this.percentage);
+        const totalImages = instance.images.length;
+        const loaded = instance.progressedCount;
+        const percentage = Math.floor((100 / totalImages) * loaded);
+        setPercentage(percentage)
       });
     });
   }
 
-  removePreloader(): void {
+  const removePreloader = () => {
     document.body.classList.remove("loading");
-
-    gsap.to(this.preloader, {
+    gsap.to(preloader, {
       opacity: 0,
       delay: 0.5,
       onComplete: () => {
-        this.preloader.remove();
-
+        preloader.remove();
         gsap.set(document.body, { overflow: "auto" });
       },
     });
   }
+
+  return { preloadImages, removePreloader }
 }
 
 export default Preload;
