@@ -13,7 +13,6 @@ const Cursor = ({ el }: Props) => {
   const renderedStyles = {
     x: 0,
     y: 0,
-    scale: 1
   }
 
   const pos = {
@@ -29,25 +28,25 @@ const Cursor = ({ el }: Props) => {
     pos.clientY = e.clientY - bounds.height / 2;
   }
 
-  const renderCursor = () => {
-    renderedStyles.x = lerp(renderedStyles.x, pos.clientX, 0.2);
-    renderedStyles.y = lerp(renderedStyles.y, pos.clientY, 0.2);
-    gsap.set(cursor, { x: renderedStyles.x, y: renderedStyles.y, scale: renderedStyles.scale });
-    requestAnimationFrame(renderCursor);
-  }
-
   const enter = () => {
-    renderedStyles.scale = 2.5;
+    gsap.to(cursor, { scale: 2.5 })
   }
 
   const leave = () => {
-    renderedStyles.scale = 1;
+    gsap.to(cursor, { scale: 1 })
+  }
+
+  const renderCursor = () => {
+    renderedStyles.x = lerp(renderedStyles.x, pos.clientX, 0.2);
+    renderedStyles.y = lerp(renderedStyles.y, pos.clientY, 0.2);
+    gsap.set(cursor, { x: renderedStyles.x, y: renderedStyles.y });
+    requestAnimationFrame(renderCursor);
   }
 
   const attachEventsToLinks = () => {
     [...document.querySelectorAll("a")].forEach((link) => {
-      link.addEventListener("mouseenter", () => enter());
-      link.addEventListener("mouseleave", () => leave());
+      link.addEventListener("mouseenter", enter);
+      link.addEventListener("mouseleave", leave);
     });
   }
 
