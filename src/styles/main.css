@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.preloader {
+  @apply fixed inset-0 bg-purple-500 z-50 flex justify-center items-center;
+}
+
+.preloader h1 {
+  @apply text-white font-sans text-5xl;
+}
+
 @media (any-pointer: fine) {
   .cursor {
     @apply fixed top-0 left-0 block pointer-events-none text-purple-500;
